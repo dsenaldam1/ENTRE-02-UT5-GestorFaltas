@@ -1,4 +1,5 @@
 /**
+ * @author David Sena
  * Punto de entrada a la aplicación
  */
 public class TestGestorFaltas {
