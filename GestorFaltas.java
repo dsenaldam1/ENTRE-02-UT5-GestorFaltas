@@ -54,8 +54,22 @@ public class GestorFaltas {
      *  
      */
     public int buscarEstudiante(String apellidos) {
-         
-        return 0;
+       int izquierda = 0;
+       int derecha = pos - 1;
+       while (izquierda <= derecha){
+            int mitad = (izquierda + derecha) / 2;
+            if (estudiantes[mitad].getApellidos().equalsIgnoreCase(apellidos)){
+                return mitad;
+            }
+            else if (estudiantes[mitad].getApellidos().compareTo(apellidos.toUpperCase()) > 0){
+                derecha = mitad - 1;
+            }
+            else{
+                izquierda = mitad + 1;
+            }
+        }
+        return -1;
+        
     }
 
     /**
