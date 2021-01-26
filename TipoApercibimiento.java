@@ -8,13 +8,12 @@
 public enum TipoApercibimiento
 {    
     DIEZ(10), VEINTE(20), TREINTA(30);
-    
     private int numero;
     private TipoApercibimiento(int numero){
-        this.numero = numero;            
+        this.numero = numero;
     }
-    
-    public int totalAper(){
+
+    public int tot(){
         return numero;
-    }
+      }
 }

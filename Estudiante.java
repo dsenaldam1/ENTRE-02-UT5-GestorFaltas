@@ -26,6 +26,7 @@ public class Estudiante {
 
     }
 
+    
 
     /**
      * accesor para el nombre completo
@@ -99,9 +100,30 @@ public class Estudiante {
      */
     public String toString() {
         String nombreApellido = apellidos + ", " + nombre;
-        String numApercibimientos = "";
-        String str = String.format("%-24s %-35s %-25s %-35s %-25s %-35s %-25s %-35s","Apellidos y Nombre:",nombreApellido,"\nFaltas No Justificadas:", faltasNoJustificadas,
-        "\nFaltas Justificadas:", faltasJustificadas, "\nApercibimientos:", numApercibimientos );
+        String numAper = "";
+        if (faltasNoJustificadas < TipoApercibimiento.TREINTA.tot()){
+            numAper = "DIEZ "+"VEINTE "+"TREINTA";
+         
+        }
+        else if(faltasNoJustificadas > TipoApercibimiento.VEINTE.tot()){
+            numAper = "DIEZ "+"VEINTE ";
+        }
+        else if(faltasNoJustificadas > TipoApercibimiento.DIEZ.tot()){
+            numAper = "DIEZ ";
+        }
+        else{
+            numAper= "Sin apercibimientos";
+        }
+        
+        
+        
+        
+        String str = ""; 
+        str += String.format("%-25s %-35s","Apellidos y Nombre:",nombreApellido);
+        str += String.format("%-25s %-35s","\nFaltas No Justificadas:", faltasNoJustificadas);
+        str += String.format(" %-25s %-35s","\nFaltas Justificadas:", faltasJustificadas);
+        str += String.format(" %-25s %-35s","\nApercibimientos:", numAper );
+        
         return str;
 
     }
