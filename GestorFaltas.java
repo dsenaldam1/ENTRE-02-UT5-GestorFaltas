@@ -40,29 +40,33 @@ public class GestorFaltas {
      *    
      */
     public void addEstudiante(Estudiante nuevo) {       
-        if(!cursoCompleto()){
-            int i = 0;
-            boolean añade = false;
-            while(i < pos){
-                if(nuevo.getApellidos().compareTo(estudiantes[i].getApellidos()) < 0){
-                    System.arraycopy(estudiantes, i, estudiantes, i + 1, pos - i);
-                    estudiantes[i] = nuevo;
-                    pos++;
-                    i = pos;
-                    añade = true;
-                }
-                else{
-                    i++;  
-                }                
-            }
-        }
-        else if(cursoCompleto()){         
+        if(cursoCompleto()){         
             System.out.println("El curso está lleno, no es posible añadir más alumnos.");
         }
         else if(buscarEstudiante(nuevo.getApellidos()) >= 0){
             System.out.println("Ya está registrado el estudiante" + 
                 nuevo.getApellidos() + nuevo.getNombre () + ", en el curso.");
         }
+        else{
+            int i = 0;    
+            boolean añade = false;
+            while(i < pos){
+                if(nuevo.getApellidos().compareTo(estudiantes[i].getApellidos()) < 0){
+                    System.arraycopy(estudiantes, i, estudiantes, i + 1, pos - i);
+                    estudiantes[i] = nuevo;
+                    pos++;
+                    añade = true;
+                    i = pos;
+                }
+                else{
+                    i++;  
+                }                
+            }
+            if (!añade){
+                estudiantes[pos] = nuevo;
+                pos++;
+            }
+        }        
     }
 
     /**
@@ -99,7 +103,12 @@ public class GestorFaltas {
      */
     public String toString() {
 
-        return null;
+        StringBuilder sb = new StringBuilder("Relación de estudiantes (" + pos + ") \n\n");
+        for (int i = 0; i < pos; i++){
+            sb.append(estudiantes[i].toString() + "\n\n");
+            sb.append("--------------------\n");
+        }
+        return sb.toString();
 
     }
 
@@ -112,7 +121,10 @@ public class GestorFaltas {
      *  justificar también)
      */
     public void justificarFaltas(String apellidos, int faltas) {
-
+        estudiantes[buscarEstudiante(apellidos)].justificar(faltas);
+        System.out.println("Justificadas " + 
+        faltas + " faltas a " +  estudiantes[buscarEstudiante(apellidos)].getApellidos()
+        + "," + estudiantes[buscarEstudiante(apellidos)].getNombre());
     }
 
     /**
@@ -121,7 +133,17 @@ public class GestorFaltas {
      * Método de selección directa
      */
     public void ordenar() {
-
+        for (int i = 0; i < estudiantes.length - 1; i++) {
+            int posmin = i;
+            for (int j = i + 1; j < estudiantes.length; j++) {
+                if (estudiantes[j].getFaltasNoJustificadas() < estudiantes[posmin].getFaltasNoJustificadas()) {
+                    posmin = j;
+                }
+            }
+            Estudiante aux = estudiantes[posmin];
+            estudiantes[posmin] = estudiantes[i];
+            estudiantes[i] = aux;
+        }
     }
 
     /**
@@ -129,7 +151,12 @@ public class GestorFaltas {
      * aquellos estudiantes con 30 o más faltas injustificadas
      */
     public void anularMatricula() {
-
+        for(int i = 0; i < pos; i++){
+            if(estudiantes[i].getFaltasNoJustificadas() >= 30){
+                System.arraycopy(estudiantes, i + 1, estudiantes, i, pos - 1);
+                pos--;
+            }
+        }
     }
 
     /**
@@ -157,7 +184,5 @@ public class GestorFaltas {
                 sc.close();
             }
         }
-
     }
-
 }

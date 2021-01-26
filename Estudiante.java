@@ -21,8 +21,8 @@ public class Estudiante {
          String[] datos = lineaDatos.split(SEPARADOR);
          this.nombre = datos[0];
          this.apellidos = datos[1].toUpperCase();
-         this.faltasNoJustificadas = Integer.parseInt(datos[2]);
-         this.faltasJustificadas = Integer.parseInt(datos[3]);
+         this.faltasNoJustificadas = Integer.parseInt(datos[2].trim());
+         this.faltasJustificadas = Integer.parseInt(datos[3].trim());
 
     }
 
