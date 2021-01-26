@@ -1,6 +1,7 @@
 /**
  * Un objeto de esta clase guarda la información de un estudiante
- *
+ *  
+ *  @author David Sena
  */
 public class Estudiante {
     private final static String SEPARADOR = ",";
@@ -17,7 +18,11 @@ public class Estudiante {
      *  
      */
     public Estudiante(String lineaDatos) {
-         
+         String[] datos = lineaDatos.split(SEPARADOR);
+         this.nombre = datos[0];
+         this.apellidos = datos[1].toUpperCase();
+         this.faltasNoJustificadas = Integer.parseInt(datos[2]);
+         this.faltasJustificadas = Integer.parseInt(datos[3]);
 
     }
 
@@ -93,8 +98,11 @@ public class Estudiante {
      * (ver enunciado)
      */
     public String toString() {
-        
-        return null;
+        String nombreApellido = apellidos + ", " + nombre;
+        String numApercibimientos = "";
+        String str = String.format("%-24s %-35s %-25s %-35s %-25s %-35s %-25s %-35s","Apellidos y Nombre:",nombreApellido,"\nFaltas No Justificadas:", faltasNoJustificadas,
+        "\nFaltas Justificadas:", faltasJustificadas, "\nApercibimientos:", numApercibimientos );
+        return str;
 
     }
 

@@ -7,13 +7,16 @@ import java.util.Scanner;
  * curso (leyendo la información de un fichero de texto) y 
  * emitir listados con las faltas de los estudiantes, justificar faltas, 
  * anular matrícula dependiendo del nº de faltas, .....
- *
+ * 
+ * @author David Sena
  */
 public class GestorFaltas {
-     
+     private Estudiante[] estudiantes;
+    private int pos;
 
     public GestorFaltas(int n) {
-         
+        estudiantes = new Estudiante[n];
+        pos = 0;
     }
 
     /**
@@ -21,7 +24,7 @@ public class GestorFaltas {
      * false en otro caso
      */
     public boolean cursoCompleto() {
-        return false;
+        return pos == estudiantes.length;
     }
 
     /**
